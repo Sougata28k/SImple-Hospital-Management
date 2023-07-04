@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="addPatient.css">
+</head>
+<body>
+    <div class="container">
+    <form name="myForm" action="NewFile.jsp" onsubmit="return validateForm()" method="post">
+   <ul> Name : <input type="text" placeholder="Add Patient Name" name="name" ></ul>
+   <ul> Age : <input type="text" placeholder="age" name="age"></ul>
+    <ul>Contact : <input type="text" placeholder="Provide Contact Number" name="contact" ></ul>
+    <ul><input type="submit" class="button" value="Submit"></ul>
+</form>
+</div>
+<script src="validate.js"></script>
+</body>
+</html>
