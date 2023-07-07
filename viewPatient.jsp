@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Display Data</title>
 <style>
@@ -57,56 +60,70 @@ Feel free to adjust the colors, padding, font size, and other properties to suit
 
 <body>
 <center>
-	<table id="patientDetailes">
-		<tr>
-			<th>Name</th>
-			<th>Age</th>
-			<th>Contact</th>
-			<th>Delete Data</th>
-		</tr>
-		<%
-			Connection con = null;
-			Statement st = null;
-			ResultSet rs = null;
-			
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sougatadb", "root", "sougatak28");
-				st = con.createStatement();
-				String query = "SELECT * FROM hospitalmanagement";
-				rs = st.executeQuery(query);
-				
-				while (rs.next()) {
-					%>
-					<tr>
-						<td><%= rs.getString(1) %></td>
-						<td><%= rs.getString(2) %></td>
-						<td><%= rs.getString(3) %> </td>
-						<td><button onclick="deleteRow(this)" class="delete-button">Delete</button></td>
-					</tr>
-					<%
-				}
-			} catch (Exception e) {
-				out.println(e);
-			} finally {
-				try {
-					if (rs != null) rs.close();
-					if (st != null) st.close();
-					if (con != null) con.close();
-				} catch (SQLException e) {
-					out.println(e);
-				}
-			}
-		%>
-	</table>
+    <table id="patientDetails">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Contact</th>
+            <th>Delete Data</th>
+        </tr>
+        <%
+            Connection con = null;
+            Statement st = null;
+            ResultSet rs = null;
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sougatadb", "root", "sougatak28");
+                st = con.createStatement();
+                String query = "SELECT * FROM hospitalmanagement";
+                rs = st.executeQuery(query);
+
+                while (rs.next()) {
+                    %>
+                    <tr>
+                        <td><%= rs.getInt("id") %></td>
+                        <td><%= rs.getString("name") %></td>
+                        <td><%= rs.getString("age") %></td>
+                        <td><%= rs.getString("contact") %></td>
+                        <td><button onclick="deleteRow(this)" class="delete-button">Delete</button></td>
+                    </tr>
+                    <%
+                }
+            } catch (Exception e) {
+                out.println(e);
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {
+                    out.println(e);
+                }
+            }
+        %>
+    </table>
 </center>
 
+
 <script>
-function deleteRow(button) {
-	  var row = button.parentNode.parentNode;
-	  row.parentNode.removeChild(row);
-	}
+    function deleteRow(button) {
+        var row = button.parentNode.parentNode;
+        var id = row.cells[0].innerHTML;
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                row.parentNode.removeChild(row);
+            }
+        };
+
+        xhr.open("POST", "delete.jsp?id=" + id, true);
+        xhr.send();
+    }
 </script>
+
 
 </body>
 </html>
