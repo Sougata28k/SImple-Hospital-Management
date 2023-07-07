@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page import="java.sql.*" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +25,33 @@
   background-color: #04AA6D;
   color: white;
 }
+.delete-button {
+  background-color: #f44336; /* Red */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.delete-button:hover {
+  background-color: #df362c; /* Darker red on hover */
+}
+In this example, I've used a red background color for the button with white text. The padding property adds some space around the text inside the button. The border property is set to none to remove the button's default border. The border-radius property gives the button rounded corners. The cursor property is set to pointer to indicate that the button is clickable.
+
+When you hover over the button, it will become slightly darker to provide visual feedback to the user.
+
+Feel free to adjust the colors, padding, font size, and other properties to suit your preferences or match your website's design.
+
+
+
+
+
+
+
 </style>
 </head>
 
@@ -35,6 +62,7 @@
 			<th>Name</th>
 			<th>Age</th>
 			<th>Contact</th>
+			<th>Delete Data</th>
 		</tr>
 		<%
 			Connection con = null;
@@ -45,7 +73,6 @@
 				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sougatadb", "root", "sougatak28");
 				st = con.createStatement();
-				
 				String query = "SELECT * FROM hospitalmanagement";
 				rs = st.executeQuery(query);
 				
@@ -54,7 +81,8 @@
 					<tr>
 						<td><%= rs.getString(1) %></td>
 						<td><%= rs.getString(2) %></td>
-						<td><%= rs.getString(3) %></td>
+						<td><%= rs.getString(3) %> </td>
+						<td><button onclick="deleteRow(this)" class="delete-button">Delete</button></td>
 					</tr>
 					<%
 				}
@@ -72,5 +100,13 @@
 		%>
 	</table>
 </center>
+
+<script>
+function deleteRow(button) {
+	  var row = button.parentNode.parentNode;
+	  row.parentNode.removeChild(row);
+	}
+</script>
+
 </body>
 </html>
