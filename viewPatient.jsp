@@ -9,19 +9,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Display Data</title>
 <style>
-#patientDetailes {
+#patientDetails {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
-#patientDetailes td, #patientDetailes th {
+#patientDetails td, #patientDetails th {
   border: 1px solid #ddd;
   padding: 8px;
 }
-#patientDetailes tr:nth-child(even){background-color: #f2f2f2;}
+#patientDetails tr:nth-child(even){background-color: #f2f2f2;}
 
-#patientDetailes tr:hover {background-color: #ddd;}
-#patientDetailes th {
+#patientDetails tr:hover {background-color: #ddd;}
+#patientDetails th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
